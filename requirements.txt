@@ -1,0 +1,4 @@
+numpy==1.21.6
+scipy==1.8.0
+pykeops==2.0
+torch==1.11+cu113
