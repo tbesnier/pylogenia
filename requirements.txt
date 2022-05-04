@@ -2,3 +2,6 @@ numpy==1.21.6
 scipy==1.8.0
 pykeops==2.0
 torch==1.11.0
+open3d==0.13.0
+plotly==5.7.0
+trimesh==3.10.8
