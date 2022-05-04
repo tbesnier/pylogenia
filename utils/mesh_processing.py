@@ -57,3 +57,12 @@ def getMeshFromData(mesh,Rho=None, color=None):
     if color is not None:
         mesh.vertex_colors =  o3d.utility.Vector3dVector(color)   
     return mesh
+
+def export_mesh(V, F, file_name):
+    """
+    Export mesh as .ply file from vertices coordinates and face connectivity
+    """
+    result = tri.exchange.ply.export_ply(tri.Trimesh(V,F), encoding='ascii')
+    output_file = open(file_name, "wb+")
+    output_file.write(result)
+    output_file.close()
