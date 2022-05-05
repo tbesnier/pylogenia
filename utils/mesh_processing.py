@@ -4,6 +4,7 @@ from scipy.io import savemat
 import os
 import open3d as o3d
 import copy
+import trimesh as tri
 
 def decimate_mesh(V,F,target):    
     """
@@ -15,7 +16,7 @@ def decimate_mesh(V,F,target):
     FS = np.asarray(mesh.triangles, np.int64) #get faces of the mesh as a numpy array
     return VS, FS    
     
-def subdivide_mesh(V,F,Rho=None,order=1):    
+def subdivide_mesh(V,F,Rho=None,order=1):
     """
     Performs midpoint subdivision. Order determines the number of iterations
     """
