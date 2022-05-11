@@ -81,8 +81,9 @@ def Flow(x0, p0, q0, K, deltat=1.0, Integrator=RalstonIntegrator()):
 def LDDMMloss(K, dataloss, gamma=0):
     def loss(p0, q0):
         p, q = Shooting(p0, q0, K)[-1]
+        #print(Hamiltonian(K)(p0, q0))
         return gamma * Hamiltonian(K)(p0, q0) + dataloss(q)
-
+    
     return loss
 
 

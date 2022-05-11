@@ -44,7 +44,7 @@ for ind_s, ls in enumerate(list_data):
             VT = torch.from_numpy(lt[0]).clone().detach().to(dtype=torchdtype, device=torchdeviceId)
             FS = torch.from_numpy(ls[1]).clone().detach().to(dtype=torch.long, device=torchdeviceId)
             FT = torch.from_numpy(lt[1]).clone().detach().to(dtype=torch.long, device=torchdeviceId)
-            sigma = torch.tensor([10], dtype=torchdtype, device=torchdeviceId)
+            sigma = torch.tensor([50], dtype=torchdtype, device=torchdeviceId)
 
             x, y, z = (
                 q0[:, 0].detach().cpu().numpy(),
