@@ -9,6 +9,7 @@ def GaussKernel(sigma):
     gamma = 1 / (sigma * sigma)
     D2 = x.sqdist(y)
     K = (-D2 * gamma).exp()
+    #print((K * b).sum_reduction(axis=1))
     return (K * b).sum_reduction(axis=1)
 
 ###################################################################
@@ -21,7 +22,7 @@ def GaussLinKernel(sigma):
     K = (-D2 * gamma).exp() * (u * v).sum() ** 2
     return (K * b).sum_reduction(axis=1)
 
-####################################################################
+##################################################################
 # Custom ODE solver, for ODE systems which are defined on tuples
 def RalstonIntegrator():
     def f(ODESystem, x0, nt, deltat=1.0):
@@ -47,6 +48,7 @@ def RalstonIntegrator():
 
 def Hamiltonian(K):
     def H(p, q):
+        #print(K(q, q, p))
         return 0.5 * (p * K(q, q, p)).sum()
 
     return H
@@ -54,7 +56,6 @@ def Hamiltonian(K):
 
 def HamiltonianSystem(K):
     H = Hamiltonian(K)
-
     def HS(p, q):
         Gp, Gq = grad(H(p, q), (p, q), create_graph=True)
         return -Gq, Gp
@@ -78,7 +79,7 @@ def Flow(x0, p0, q0, K, deltat=1.0, Integrator=RalstonIntegrator()):
     return Integrator(FlowEq, (x0, p0, q0), deltat)[0]
 
 
-def LDDMMloss(K, dataloss, gamma=0):
+def LDDMMloss(K, dataloss, gamma=1):
     def loss(p0, q0):
         p, q = Shooting(p0, q0, K)[-1]
         #print(Hamiltonian(K)(p0, q0))
